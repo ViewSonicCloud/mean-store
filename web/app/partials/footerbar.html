@@ -1,0 +1,245 @@
+
+		<footer>
+			
+			</style>
+			<section class="bottom container clearfix">
+						<div class="header-footer clearfix">
+							<p class="lead web_title">{{admin.title}}</p>
+							<div class="pull-right img-inner">
+								<a href="{{social.url}}" ng-repeat="social in admin.social_links">
+									<i class="fa fa-{{social.name}} fb-img img-position"></i>
+								</a>
+								
+							</div>	
+						</div><!--header-footer-->
+						<div class="li-part">
+							<ul>
+								<li ng-repeat="page in header.pages">
+									<a ng-href="#/page/{{page._id}}" >{{page.name}}</a>
+								</li>
+								
+							</ul>
+						</div><!--li-part-->
+						<div class="grid-part">
+							<div class="container-fluid">
+							<div class="row">
+								<!--col-part-one-->
+								<div class="col-md-6">
+									<div class="gd-inner-one clearfix">
+										<p class="pull left text-muted">
+											Businesses
+										</p>
+										<ul>
+											<li>
+												<a href="#">
+													Add a Restaurant
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													Claim your Listing
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													Business App
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													Restaurant Widgets
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													Guidelines
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													Business Blog
+												</a>
+											</li>
+										</ul>
+										
+											<ul class="ul-position">
+												<li>
+													<a href="#">
+														Advertise
+													</a>
+												</li>
+												<li>
+													<a href="#">
+														Book
+													</a>
+												</li>
+												<li>
+													<a href="#">
+														Order
+													</a>
+												</li>
+												<li>
+													<a href="#">
+														Base
+													</a>
+												</li>
+												<li>
+													<a href="#">
+														Whitelabel
+													</a>
+												</li>
+											</ul>
+									
+									</div><!--gd-inner-one-->
+								</div><!--col-md-6-->
+								<div class="col-md-6">
+									<div class="gd-inner-one clearfix">
+										<p class="pull left text-muted gd-part-one-p">
+											Countries
+										</p>
+										<ul>
+											<li>
+												<a href="#">
+													Australia
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													Brasil
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													Canada
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													Chile
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													Czech Republic
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													India
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													Indonesia
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													Ireland
+												</a>
+											</li>
+										</ul>
+									
+										<ul class="position-two">
+											<li>
+												<a href="#">
+													Italy
+												</a>
+											</li>
+											
+											<li>
+												<a href="#">
+													Lebanon
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													Malaysia
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													New Zealand
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													Philippines
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													Poland
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													Portugal
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													Qatar
+												</a>
+											</li>
+										</ul>
+									
+										<ul class="position-style-ul country-inner-ul">
+											<li>
+												<a href="#">
+													Slovakia
+												</a>
+											</li>
+											
+											<li>
+												<a href="#">
+													South Africa
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													Sri Lanka
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													Turkey
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													UAE
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													United Kingdom
+												</a>
+											</li>
+											<li>
+												<a href="#">
+													United States
+												</a>
+											</li>
+											
+										</ul>
+								
+									</div><!--gd-inner-one-->
+								</div><!--col-md-6-->
+							</div>
+							</div><!--row-->
+						</div><!--grid-part-->
+						<div class="li-part clearfix">
+							<ul>
+								<li ng-repeat="page in header.pages">
+									<a ng-href="#/page/{{page._id}}" >{{page.name}}</a>
+								</li>
+							</ul>
+						</div>
+						<p>
+
+							All trademarks are properties of their respective owners.
+							&copy; 2008-2016 - {{admin.title}}&trade; Media Pvt Ltd. All rights reserved.
+						</p>
+					</section>
+		</footer>

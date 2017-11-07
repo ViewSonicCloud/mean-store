@@ -1,0 +1,163 @@
+
+<link rel="stylesheet" href="styles/action-pending.css" />
+<div class="wrapper">
+
+  <w3-test-directive></w3-test-directive>
+  <sidebar></sidebar>
+  <!-- Left side column. contains the logo and sidebar -->
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper" ng-controller="OrderPendingCtrl">
+    <div class="alert alert-success toggle" id="toggle">
+      <a href="javascript:void(0)" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <div id="message"></div>
+    </div>
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+      Action Pending
+      </h1>
+      <div class="outer">
+        <div class="container-fluid clearfix" style="padding:0px;">
+           <div class="inner-container">
+          <ul class="nav nav-pills col-md-12" style="padding:0px;">
+            <li class="active col-md-6" style="padding:0px;text-align:center;"><a class="btn btn-default" data-toggle="pill" href="#/order_pending" data-target="#product">Yet to be Accepted</a></li>
+              <li class="col-md-6" style="text-align:center;padding:0px;margin-left:-1px;"><a class="btn btn-default" data-toggle="pill" href="#/order_rejected" data-target="#product">Rejected</a></li>
+
+
+          </ul>
+
+          <div class="tab-content">
+            <div id="home" class="tab-pane fade in active clearfix">
+              <!--search-->
+                <div class="pull-right search_pd" style="margin-top:10px;">
+                  <label>
+                    Search:
+                  </label>
+                  <div class="form-group">
+                   <input ng-model="searchText" class="form-control">
+                 </div>
+               </div>
+                 <!--search-->
+                <div class="active-inner clearfix" >
+                  <div class="container-fluid" style="margin-top:50px;">
+                    <div class="row">
+                      <div class="col-md-3 col-sm-3 img-col" style="">
+                        <b>Order Id</b>
+                      </div>
+                      <div class="col-md-2 col-sm-2" style="text-align:center;padding-left:0px;">
+                        <b>Quantity</b>
+                      </div>
+                      <div class="col-md-1 col-sm-1">
+                        <b>Price</b>
+                      </div>
+
+
+                      <div class="col-md-2 col-sm-2">
+                        <div class="date_inner" style="padding-left:34px;">
+                        <b>Date</b>
+                      </div>
+                      </div>
+                      <div class="col-md-3 col-sm-3" style="text-align:center;">
+                        <b>Action</b>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div ng-if="orders ==0" class="no-data">
+                    No Product
+                  </div>
+                  <div ng-repeat ="o in orders |filter:searchText ">
+                  <div class="border-section" id={{o._id}}>
+                    <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-2" style="padding: 0px;margin-left: -13px;">
+                      {{o._id}}
+                      </div>
+                      <div class="col-md-2" style="text-align:right;padding-right:0px;">
+                      {{o.quantity}}
+                      </div>
+                      <div class="col-md-2" style="text-align:right;">
+                        {{o.price}}
+                      </div>
+                      <div class="col-md-2" style="text-align:center;">
+                       <p ng-bind="o.products[0].updated_at | date:'MM/dd/yyyy HH:mm:ss'"></p>
+
+
+                      </div>
+                      <div class="col-md-4" style="text-align:center;">
+                        <order-status order="o._id" product="o.product_id" status="Approve"></order-status>
+                        <order-status order="o._id" product="o.product_id" status="Reject"></order-status>
+                         <a data="{{o._id}}"  ng-click="view_single_product(o._id)" style="cursor:pointer;margin-left:7px;">View</a>
+                      </div>
+
+
+                    </div>
+                  </div>
+                  </div>
+                </div>
+
+                </div>
+            </div>
+
+          </div>
+          </div>
+        </div><!--container-->
+      </div><!--outer-->
+
+    </section>
+
+    <!-- Main content -->
+    <section class="content" >
+
+      <div class="col-lg-12  col-xs-12">
+        <div class="footer-widget">
+          <h3>News Feed</h3>
+          <ul id="recentpost" class="footer-gallery">
+
+          </ul>
+          <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+        </div>
+      </div>
+  </section>
+    <footer class="main-footer" style="padding-bottom:100px;" ng-controller ="FooterCtrl">
+      <div class="col-lg-4">
+        <strong>Copyright &copy; 2014-2016 .</strong> All rights
+        reserved.
+      </div>
+      <div class="col-lg-8 col-xs-12 ">
+        <ul>
+          <li class="footer_li" ng-repeat ="y in pages">
+              <a target="_blank" href="#/content/{{y._id}}">{{y.name}}</a>
+            </li>
+
+        </ul>
+    </div>
+    <div class="col-md-offset-5 col-md-6 col-xs-12 text-right">
+      <p>
+        <a href="javascript:void(0);">
+            <i class="fa fa-android fa_icon"></i>
+        </a>
+        <a href="javascript:void(0);">
+            <i class="fa fa-apple fa_icon"></i>
+        </a>
+         Download our App Sell on the move, anywhere and anytime via our app
+      </p>
+    </div>
+
+
+
+    </footer>
+    <!-- /.content -->
+
+  </div>
+  <!-- /.content-wrapper -->
+
+  <script>
+
+  </script>
+
+</div>

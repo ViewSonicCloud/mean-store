@@ -1,0 +1,166 @@
+<link rel="stylesheet" href="styles/product_list.css" />
+<div class="wrapper">
+
+  <w3-test-directive></w3-test-directive>
+  <sidebar></sidebar>
+  <!-- Left side column. contains the logo and sidebar -->
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper" >
+    <div class="alert alert-success product_visible" id="product_visible">
+      <a href="javascript:void(0)" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <div id="product_message"></div>
+    </div>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+          <h1 class="tab_heading">List of Products that are yet to be approved by the Admin.</h1>
+      <div class="outer">
+        <div class="container-fluid clearfix" style="padding:0px;">
+           <div class="inner-container">
+          <ul class="nav nav-pills col-md-12" style="padding:0px;">
+              <li class="active col-md-3" style="padding:0px;margin-left:-1px;"><a class="btn btn-default" data-toggle="pill" href="#/yet_to_be_approved" data-target="#out_of_stock_products">Yet to be Approved</a></li>
+          <li class="col-md-3" style="padding:0px;margin-left:-1px;"><a class="btn btn-default" data-toggle="pill" href="#/product" data-target="#product">Active Products</a></li>
+          <li class="col-md-3" style="padding:0px;margin-left:-1px;"><a class="btn btn-default" data-toggle="pill" href="#/inactive_products" data-target="#inactive_product">Inactive Products</a></li>
+          <li class="col-md-3" style="padding:0px;margin-left:-1px;"><a class="btn btn-default" data-toggle="pill" href="#/out_of_stock_products" data-target="#out_of_stock_products">Out of stock products</a></li>
+
+
+          </ul>
+
+          <div class="tab-content">
+          <div id="home" class="tab-pane fade in active clearfix">
+            <!--search-->
+              <div class="pull-right search_pd">
+                <label>
+                  Search:
+                </label>
+                <div class="form-group">
+                 <input ng-model="searchText" class="form-control">
+               </div>
+             </div>
+               <!--search-->
+              <div class="active-inner clearfix"  >
+                <div class="container-fluid" style="margin:10px 0px;">
+                  <div class="row">
+                    <div class="col-md-2 col-sm-2 img-col" style="">
+                      <b class="paddlf20">Image</b>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                      <b>Product Detail</b>
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                      <b>Price</b>
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                      <b>Qty</b>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                      <b>Action</b>
+                    </div>
+                  </div>
+                </div>
+
+                <div ng-if="yet_to_be_approved.length ==0" class="no-data">
+                  No Product
+                </div>
+                <div ng-repeat ="y in yet_to_be_approved |filter:searchText">
+                <div class="border-section"  id="{{y._id}}">
+                  <div class="container-fluid" >
+                  <div class="row">
+                    <div class="col-md-2">
+
+
+                    <img src="{{y.images[0].cdn.url}}" alt="Smiley face" height="100" width="100">
+                    </div>
+                    <div class="col-md-3 paddlf20">
+                    {{y.description}}
+                    </div>
+                    <div class="col-md-2">
+
+                      Price: {{y.pricing.original}}
+                      <br/>
+                      Discount: {{y.pricing.after_discount}}
+                    </div>
+                    <div class="col-md-1">
+                        {{y.quantity}}
+                    </div>
+                    <div class="col-md-4" style="text-align:center;">
+                      <input type="button" class="btn btn-primary" data="{{y._id}}"  ng-click="edit_single_product(y._id)" value="Edit"/>
+
+                      <delete-link id="y._id"></delete-link>
+                      <a href="{{user_url}}#/product/{{y._id}}" target="_blank">View</a>
+
+
+
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+
+              </div>
+          </div>
+
+          </div>
+          </div>
+        </div><!--container-->
+      </div><!--outer-->
+
+    </section>
+    <section class="content" >
+
+      <div class="col-lg-12  col-xs-12">
+        <div class="footer-widget">
+          <h3>Recent posts</h3>
+          <ul id="recentpost" class="footer-gallery">
+
+          </ul>
+          <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+        </div>
+      </div>
+  </section>
+
+
+    <footer class="main-footer" style="padding-bottom:100px;" ng-controller ="FooterCtrl">
+      <div class="col-lg-4">
+        <strong>Copyright &copy; 2014-2016 .</strong> All rights
+        reserved.
+      </div>
+      <div class="col-lg-8 col-xs-12 ">
+        <ul>
+          <li class="footer_li" ng-repeat ="y in pages">
+              <a target="_blank" href="#/content/{{y._id}}">{{y.name}}</a>
+            </li>
+
+        </ul>
+    </div>
+    <div class="col-md-offset-5 col-md-6 col-xs-12 text-right">
+      <p>
+        <a href="javascript:void(0);">
+            <i class="fa fa-android fa_icon"></i>
+        </a>
+        <a href="javascript:void(0);">
+            <i class="fa fa-apple fa_icon"></i>
+        </a>
+         Download our App Sell on the move, anywhere and anytime via our app
+      </p>
+    </div>
+
+
+
+    </footer>
+    <script>
+
+    </script>
+
+    <!-- Main content -->
+
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+
+
+
+</div>
+<!-- ./wrapper -->

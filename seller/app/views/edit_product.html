@@ -1,0 +1,712 @@
+<link rel="stylesheet" href="styles/product.css" />
+
+<div class="wrapper">
+
+  <w3-test-directive></w3-test-directive>
+  <sidebar></sidebar>
+  <!-- Left side column. contains the logo and sidebar -->
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <div class="alert alert-error"  ng-show="product_error" >
+      <a href="javascript:void(0)" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>Error!</strong> {{error_message}}
+    </div>
+
+    <div class="alert alert-success" id="mydiv" ng-show="product_update" >
+      <a href="javascript:void(0)" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong>Success!</strong> Product Updated Successfully!!
+    </div>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+
+
+
+      <div class="outer">
+  			<div class="container-fluid">
+          <form ng-submit="submiting()" >
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="panel-title">
+                    <a href="javascript:void(0)" data-toggle="collapse">
+                      <b>Product Type</b>
+                    </a>
+                  </div>
+                </div>
+                <div class="panel-body text-center">
+                  <switch id="enabled" name="enabled" off="Digital" on="Physical"  ng-change="visibility_toggle()" ng-model="product_type" class="green" ></switch>
+                </div>
+            </div>
+
+  				<!--product-info-->
+  				<div class="panel panel-default">
+  					<div class="panel-heading head clearfix">
+  						<div class="panel-title">
+  							<a href="javascript:void(0)" data-toggle="collapse">
+  								<b>Product Info</b>
+  							</a>
+  						</div>
+  					</div>
+
+  					<div id="id" class="collapse in">
+  						<div class="row in-inner">
+  							<label class="col-md-2 form-group required">Name</label>
+
+  							<input type="text"  minlength="3" required ng-model ="product_details.title" class="col-md-8 form-cont" placeholder="Enter Product Name"/>
+
+              </div>
+              <div class="row in-inner">
+                <label class="col-md-2 form-group required">Category</label>
+                <select  required  class="col-md-3 form-cont" ng-model="product_details.category" ng-change ="sub_category()">
+              	<option value="">Select</option>
+                  <option ng-repeat ="cat in category track by $index"  value="{{cat._id}}">{{cat.name}}</option>
+                </select>
+              </div>
+               <div class="row in-inner" ng-show="subcategory_visible">
+                <label class="col-md-2 form-group required">Sub Category</label>
+                <select ng-model="product_details.sub_category" class="col-md-3 form-cont" >
+                  <option value="">Select</option>
+                  <option  ng-repeat="sub in subcategories track by $index" value="{{sub._id}}">{{sub.name}}</option>
+                </select>
+              </div>
+
+  						<div class="row in-inner">
+  							<label class="col-md-2 form-group required">Short Description</label>
+
+                <textarea maxlength="200" required ng-model ="product_details.description" class="col-md-8 form-cont" rows="5" style="min-height:60px;" placeholder="Enter Product Description"></textarea>
+                  <p style="margin: 5px 17%;margin-bottom: 0px;">{{200 - description.length}} characters remaining</p>
+
+  							<div class="col-md-12">
+  								<div class="row in-inner">
+  									<label class="col-md-12 form-group required" >Quantity</label>
+                    <p class="q_description">- The Total number of products you have in stock.<br/>
+                    - The inventory will be auto-updated as sales happens
+                  </p>
+  									<input required type="text" ng-model ="product_details.quantity" class="col-md-4 form-cont" placeholder="Quantity" style="margin-top:5px;margin-left: 21px;"/>
+  								</div>
+  							</div>
+  						</div>
+              <div class="row in-inner">
+                <label class="col-md-12 form-group ">Long Description</label>
+              </br>
+                <p class="sample_product">( Check a sample Product page HERE )</p>
+                <div ckeditor="options" ng-model="product_details.long_description" ready="onReady()"></div>
+
+             </div>
+             <div class="row in-inner" style="padding-bottom:10px;margin-left:1px!important">
+               <label class="col-md-3 form-group long_description" >Terms And Conditions</label></br>
+               <textarea ng-model ="product_details.terms_and_conditions" class="col-md-8 form-cont" rows="5" style="min-height:60px;" placeholder="Enter Terms And Conditions"></textarea>
+               <br/>
+               <br/>
+            </div>
+
+
+  					</div>
+  				</div>
+  				<!--product-info-->
+
+
+          <div class="col-md-12" style="padding:0px;">
+          <!--Pricing-->
+          <div class="panel panel-default" ng-show="product_type">
+            <div class="panel-heading clearfix">
+              <div class="panel-title">
+                <a href="javascript:void(0)" data-toggle="collapse">
+                  <b>Pricing And Calculations</b>
+                </a>
+              </div>
+
+            </div>
+            <div class="panel-body main-cp" >
+
+          <div class="col-md-9 grid_left pricing_grid p_main" style="padding-left:0px;">
+            <div class="panel panel-default pricing_panel" >
+              <div class="panel-heading head-new clearfix">
+
+                <div class="panel-title clearfix">
+                  <a href="#id-price" data-toggle="collapse">
+                    <b>Pricing</b>
+
+                  </a>
+
+                </div>
+              </div>
+              <div id="id-price" class="collapse in pricing_sm" >
+                <div class="in-inner">
+                  <div class="col-md-6">
+                    <div class="row in-inner">
+                      <label class="col-md-4 form-group required ">Item Price</label>
+                      <div class="input-group outer_group">
+                        <div class="input-group-addon">{{price_unit}}</div>
+                        <input type="number" min="1" ng-required ="product_type" ng-change="calculate_prices()" ng-model="pricing.original" class="col-md-7 form-cont" placeholder="Max Retail Price" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row in-inner">
+                    <label class="col-md-3 form-group">Price After Discount</label>
+                      <div class="input-group outer_group">
+                        <div class="input-group-addon">{{price_unit}}</div>
+                        <input type="number" min="1"  ng-change="calculate_prices()" ng-model="pricing.after_discount" class="col-md-7 form-cont" placeholder="Price After Discount"/>
+
+                      </div>
+                        <span ng-model="p.error" style="color:#ff0000;margin:4px;">{{pricing.error}}</span>
+                    </div>
+                  </div>
+
+
+
+                </div>
+              </div>
+            </div>
+            </div><!--col-md-9-->
+          <!--pricing-->
+
+          <!--calculation-->
+          <div class="col-md-3 calculation_grid" style="padding-right:0px;">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <div class="panel-title">
+                  <b>Calculation</b>
+                </div>
+              </div>
+              <div class="panel-body" style="padding:0px 15px">
+                <ul style="padding-left:0px;">
+                  <li><b>Item Price :</b> <label ng-model="pricing.original" />{{pricing.original}}</label></li>
+                  <li><b>Selling Price :</b> <label  ng-model="after_discount"/>{{pricing.after_discount}}</label></li>
+
+                  <li><b>{{config_commission}}% Commission :</b><label  ng-model="pricing.commission" />{{pricing.commission}}</label></li>
+                  <li><b>{{config_service_tax}}% Service Tax :</b><label   ng-model="pricing.service_tax" />{{pricing.service_tax| number}}</label></li>
+                  <li><hr></li>
+                  <li><b>You Earn :</b> <label ng-model="savings" />{{p.price_unit}} {{pricing.savings | number}}</label></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!--calculation-->
+        </div><!--panel-body-->
+        </div>
+          <div class="panel panel-default" ng-show="!product_type">
+            <div class="panel-heading clearfix">
+              <div class="panel-title">
+                <a href="javascript:void(0)" data-toggle="collapse">
+                  <b>Pricing And Calculations</b>
+                </a>
+              </div>
+                    <span class="pull-right" ng-show="!product_type"> Click here to ADD Pricing for another License <span  ng-click="add_prices($index)" class=" multiple_add increase_item"><i class="fa fa-plus"></i></span></span>
+            </div>
+            <div class="panel-body main-cp" data-ng-repeat="p in prices |limitTo:license_length">
+                <span ng-show="price_add_subtract" ng-click="remove_prices($index)" class="pull-right multiple_add decrease_item"><i class="fa fa-minus"></i></span>
+          <div class="col-md-9 grid_left pricing_grid p_main" style="padding-left:0px;">
+            <div class="panel panel-default pricing_panel" >
+              <div class="panel-heading head-new clearfix">
+
+                <div class="panel-title clearfix">
+                  <a href="#id-price" data-toggle="collapse">
+                    <b>Pricing</b>
+
+                  </a>
+
+                </div>
+              </div>
+              <div id="id-price" class="collapse in pricing_sm" >
+                <div class="in-inner">
+                  <div class="col-md-6">
+                    <div class="row in-inner">
+                      <label class="col-md-4 form-group required ">Item Price</label>
+                      <div class="input-group outer_group">
+                        <div class="input-group-addon">{{price_unit}}</div>
+                        <input type="number" min="1" required ng-change="calculate_price($index,prices)" ng-model="p.original" class="col-md-7 form-cont" placeholder="Max Retail Price" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row in-inner">
+                    <label class="col-md-3 form-group">Price After Discount</label>
+                      <div class="input-group outer_group">
+                        <div class="input-group-addon">{{price_unit}}</div>
+                        <input type="number" min="1" ng-change="calculate_price($index,prices)" ng-model="p.after_discount" class="col-md-7 form-cont" placeholder="Price After Discount"/>
+
+                      </div>
+                        <span ng-model="p.error" style="color:#ff0000;margin:4px;">{{p.error}}</span>
+                    </div>
+                  </div>
+
+                  <label class="col-md-4 form-group required">Click Here to select License</label>
+                    <select class="form-cont col-md-5"
+                    ng-model="p.license"
+                    ng-required="!product_type"
+                      ng-show="price_add_subtract"
+                    ng-options="state._id as state.name disable when isSelectionUsed(state, p) for state in licenseOptions">
+
+                  </select>
+                </div>
+              </div>
+            </div>
+            </div><!--col-md-9-->
+          <!--pricing-->
+
+          <!--calculation-->
+          <div class="col-md-3 calculation_grid" style="padding-right:0px;">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <div class="panel-title">
+                  <b>Calculation</b>
+                </div>
+              </div>
+              <div class="panel-body" style="padding:0px 15px">
+                <ul style="padding-left:0px;">
+                  <li><b>Item Price :</b> <label ng-model="original" />{{p.original}}</label></li>
+                  <li><b>Selling Price :</b> <label  ng-model="after_discount"/>{{p.after_discount}}</label></li>
+
+                  <li><b>{{config_commission}}% Commission :</b><label  ng-model="commision" />{{p.commission}}</label></li>
+                  <li><b>{{config_service_tax}}% Service Tax :</b><label   ng-model="service_tax" />{{p.service_tax| number}}</label></li>
+                  <li><hr></li>
+                  <li><b>You Earn :</b> <label ng-model="savings" />{{p.price_unit}} {{p.savings | number}}</label></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!--calculation-->
+        </div><!--panel-body-->
+        </div><!--panel-->
+          <!--Thumbnail-->
+          <!--shipping-->
+          <div class="col-md-12" style="padding:0px;">
+          <div class="panel panel-default">
+            <div class="panel-heading  clearfix">
+              <div class="panel-title">
+                <a href="javascript:void(0)" data-toggle="collapse">
+                  <b>Shipping</b><span class="pull-right"> {{shipping_message}}</span>
+                </a>
+              </div>
+            </div>
+            <div id="id-shipping" class="collapse in">
+              <div class="row in-inner">
+                <div class="col-md-6">
+                  <div class="row in-inner">
+                    <label class="col-md-4 form-group required ">Weight</label>
+                    <div class="input-group outer_group">
+                    <input type="number" min="1" ng-required=product_type ng-disabled="!product_type" ng-model="product_details.shipping_details.weight" class="form-control col-md-2" style="width: 46%;">
+                    <select   ng-required=product_type ng-disabled="!product_type" ng-model="unit" class="form-control col-md-2" style="width:41%;">
+                      <option value="">Select</option>
+                      <option ng-repeat ="u in units track by $index"  value="{{u}}">{{u}}</option>
+                    </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="row in-inner">
+                  <label class="col-md-4 form-group">Shipping Fee </label>
+                    <div class="input-group outer_group">
+                      <div class="input-group-addon">{{price_unit}}</div>
+                      <input type="number" ng-required=product_type ng-disabled="!product_type"  min="1" ng-model="shipping_fee" class="col-md-7 form-cont" placeholder="Shipping"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row in-inner">
+                <div class="col-md-6">
+                  <div class="row in-inner">
+                    <label class="col-md-4 form-group required ">Ships in</label>
+
+                      <select    ng-required=product_type ng-disabled="!product_type" ng-model="ship_duration" class="col-md-7  form-cont">
+                      <option value="">Select</option>
+                        <option ng-repeat ="s in ships_in track by $index"  value="{{s}}">{{s}}</option>
+                      </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="row in-inner">
+                  <label class="col-md-4 form-group required">Paid by</label>
+                    <form role="form" >
+                      <div ng-init="paid_by=paid_by">
+                      <label class="radio-inline" >
+                        <input  type="radio" ng-model="paid_by"  name="optradio" value="0">Me
+                      </label>
+                      <label class="radio-inline">
+                        <input  type="radio" name="optradio" ng-model="paid_by" value="1">Buyer
+                      </label>
+                    </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--shipping-->
+        </div>
+
+          <!--dynamic input-->
+  					<!--variant_quantity-->
+            <div class="col-md-12" style="padding:0px;" ng-show="product_type">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="panel-title">
+                    <a href="javascript:void(0)" data-toggle="collapse">
+                      <b>Variant And Quantity</b>
+                    </a>
+                  </div>
+                </div>
+                <p class="vq_description">- Enter any number of variants this product has.<br/>
+                  - Accordingly, it will show on the Product page as a drop down.<br/>
+                  - Sum of the quantity of all Variants cannot be grater than the overall Product quanitity.<br/></p>
+
+                  <p class="vq_description" style="margin-bottom:0px;">  Eg: Variant Name: <span class="red_clr">Black</span>  Quantity:<span class="red_clr"> 10</span><br/></p>
+                      <p class="vq_description" style="margin-top: 0px;margin-left: 41px;">  Variant Name: <span class="red_clr">White</span>  Quantity:<span class="red_clr"> 15</span>
+                  </p>
+                <div class="panel-body" style="">
+                  <div class="row">
+
+                 <div class="col-md-12" ng-repeat="vari in variants" style="padding:0px;">
+                   <div class="col-md-5" style="padding:0px;">
+
+                    <input type="text"  ng-model="vari.name"  name="" class="form-control " style="margin: 10px 15px;" placeholder="Variant">
+                  </div>
+                   <div class="col-md-5">
+
+                    <input type="text"  ng-model="vari.quantity" string-to-number  min="1" max="{{quantity}}"  name="" class="form-control" style="margin:10px 15px;" placeholder="Quantity">
+                  </div>
+                  <div class="col-md-1">
+                    <input type="button" class="form-control remove btn btn-danger" style="margin:10px 15px;"  ng-click="removeChoice($index)" value="-">
+                  </div>
+                  <div class="panel-body main-cp" >
+
+                <div class="col-md-9 grid_left pricing_grid p_main" style="padding-left:0px;">
+                  <div class="panel panel-default pricing_panel" >
+                    <div class="panel-heading head-new clearfix">
+
+                      <div class="panel-title clearfix">
+                        <a href="#id-price" data-toggle="collapse">
+                          <b>Pricing</b>
+
+                        </a>
+
+                      </div>
+                    </div>
+                    <div id="id-price" class="collapse in pricing_sm" >
+                      <div class="in-inner">
+                        <div class="col-md-6">
+                          <div class="row in-inner">
+                            <label class="col-md-4 form-group required ">Item Price</label>
+                            <div class="input-group outer_group">
+                              <div class="input-group-addon">{{price_unit}}</div>
+                              <input type="number" min="1" required ng-change="calculate_price($index,'variants')" ng-model="vari.original" class="col-md-7 form-cont" placeholder="Max Retail Price" />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="row in-inner">
+                          <label class="col-md-3 form-group">Price After Discount</label>
+                            <div class="input-group outer_group">
+                              <div class="input-group-addon">{{price_unit}}</div>
+                              <input type="number" min="1" ng-change="calculate_price($index,'variants')" ng-model="vari.after_discount" class="col-md-7 form-cont" placeholder="Price After Discount"/>
+
+                            </div>
+                              <span ng-model="p.error" style="color:#ff0000;margin:4px;">{{vari.error}}</span>
+                          </div>
+                        </div>
+
+
+
+                      </div>
+                    </div>
+                  </div>
+                  </div><!--col-md-9-->
+                <!--pricing-->
+
+                <!--calculation-->
+                <div class="col-md-3 calculation_grid" style="padding-right:0px;">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <div class="panel-title">
+                        <b>Calculation</b>
+                      </div>
+                    </div>
+                    <div class="panel-body" style="padding:0px 15px">
+                      <ul style="padding-left:0px;">
+                        <li><b>Item Price :</b> <label ng-model="original" />{{vari.original}}</label></li>
+                        <li><b>Selling Price :</b> <label  ng-model="after_discount"/>{{vari.after_discount}}</label></li>
+
+                        <li><b>{{config_commission}}% Commission :</b><label  ng-model="commision" />{{vari.commission}}</label></li>
+                        <li><b>{{config_service_tax}}% Service Tax :</b><label   ng-model="service_tax" />{{vari.service_tax| number}}</label></li>
+                        <li><hr></li>
+                        <li><b>You Earn :</b> <label ng-model="savings" />{{p.price_unit}} {{vari.savings | number}}</label></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <!--calculation-->
+              </div>
+                  </div>
+                </div>
+                 <input  type="button" class="addfields btn btn-success" style="margin:10px 15px;" ng-click="addNewChoice()" value="Add"/>
+
+              <div id="choicesDisplay" ng-model="variant_quant" style="display:none">{{variants}}</div>
+
+                </div>
+              </div>
+            </div>
+            <!--variant_quantity-->
+            <!--digital file upload-->
+
+            <div class="col-md-12" style="padding:0px;" ng-show="!product_type">
+
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="panel-title">
+                    <a href="javascript:void(0)" data-toggle="collapse">
+                      <b>Digital File Upload</b>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="panel-body" style="">
+                  <div  class="col-md-12" style="padding:0px;">
+
+                  <div class="col-md-6" >
+                      <a href="{{product_details.source.url}}" target="_blank" style="    display: inline-block;font-size: 15px;line-height: 38px;letter-spacing: 0.6px;">Download File</a>
+                      <input type="file" ngf-select="upload($file)"  name="file"
+                            >
+                            <br/>
+                              {{ProgressPercentageValue}}
+                      <div class="progress progress-sm active">
+                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{ProgressPercentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{ProgressPercentage}}%">
+                      <span class="sr-only"></span>
+                    </div>
+                  </div>
+                  </div>
+
+                  </div>
+
+
+
+
+                </div>
+              </div>
+            </div>
+            <!--digital file upload-->
+            <!--SEO-->
+            <div class="col-md-12" style="padding:0px;">
+            <div class="panel panel-default">
+              <div class="panel-heading head clearfix">
+                <div class="panel-title">
+                  <a href="javascript:void(0)" data-toggle="collapse">
+                    <b>To Rank in Search Engines.</b>
+                  </a>
+                </div>
+              </div>
+              <p class="vq_description">
+                The following fields will get your product ranked easily on Top in search engines.
+              </p>
+              <div id="id" class="collapse in">
+                <div class="row in-inner">
+                  <label class="col-md-2 form-group" style="margin-bottom:0px;">Meta title</label><br/>
+                    <p class="meta_des">A Proper Title for your Page. Think how someone will Google your product.
+                      <a href=" http://snip.ly/g67n4" target="_blank"> [?]</a><br/></p>
+                        <textarea row="3"  ng-model ="product_details.meta.title" class="col-md-10 form-cont text_box"  maxlength="57" placeholder="( This will be only visible for Search Spiders. 50 - 57 Characters long )"></textarea>
+                          <p style="margin: 5px 17%;margin-bottom: 0px;">{{57 - meta.title.length}} characters remaining</p>
+                </div>
+                <div class="row in-inner">
+                  <label class="col-md-2 form-group" style="margin-bottom:0px;">Meta Description</label><br/>
+                  <p class="meta_des">A Proper description about your product.
+                    <a href="http://snip.ly/hmesn" target="_blank"> [?]</a><br/></p>
+                  <textarea row="3" ng-model ="product_details.meta.description" class="col-md-10 form-cont text_box"  maxlength="160" placeholder="( This will be only visible for Search Spiders. 150 to 160 Characters long )"></textarea>
+                    <p style="margin: 5px 17%;margin-bottom: 0px;">{{160 - meta.description.length}} characters remaining</p>
+                </div>
+                <div class="row in-inner">
+                  <label class="col-md-2 form-group " style="margin-bottom:0px;">Meta Keywords</label><br/>
+                  <p class="product_details.meta_des">Keywords related to your product that people may search
+                    <a href=" http://snip.ly/j973r" target="_blank"> [?]</a><br/></p>
+                  <textarea row="3"  maxlength="100" ng-model ="meta.keyword" class="col-md-10 form-cont text_box" placeholder="( This will be only visible for Search Spiders. Not more than 5. Comma separate each Keyword )"></textarea>
+                    <p style="margin: 5px 17%;margin-bottom: 0px;">{{100 - meta.keyword.length}} characters remaining</p>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+            <!--SEO-->
+            <!--video url-->
+
+            <div class="col-md-12" style="padding:0px;" >
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="panel-title">
+                    <a href="javascript:void(0)" data-toggle="collapse">
+                      <b>Videos</b>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="panel-body" style="">
+                  <div  data-ng-repeat="v in product_videos" class="col-md-12" style="padding:0px;">
+                    <div class="col-md-8" style="padding:0px;">
+                    <input type="url" ng-model="v.url"  class="form-control col-md-5" style="margin: 10px 15px;" placeholder="Url">
+                  </div>
+
+                  <div class="col-md-1">
+                    <input type="button" class="form-control remove btn btn-danger" style="margin:10px 15px;"  ng-click="removeVideoUrl($index)" value="-">
+                  </div>
+                  </div>
+
+              <input  type="button" class="addfields btn btn-success" style="margin:10px 15px;" ng-click="add_video_url()" value="Add"/>
+
+
+              </div>
+            </div>
+            <!--video url-->
+
+                <!--thumbnail-->
+
+                <div class="col-md-12" style="padding:0px;">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <div class="panel-title">
+                        <b class="required">Images</b>
+                      </div>
+                    </div>
+
+                    <div>
+
+
+
+                    </div>
+                      <span class="add_image" ng-show="image_message">Please Add Images.Image Types Allowed: png, jpeg, jpg, gif</span>
+                    <div class="panel-body" style="padding-bottom:70px;padding-top: 0px;">
+                       <p class="i_description">
+                        <b style="font-weight: 600;font-size: 15px;font-style: italic;color: #000;">- Image Types Allowed: png, jpeg, jpg, gif</b><br/>
+                       <span style="display:inline-block;margin-top:10px;">- You can upload upto 4 images</span>
+                    </p>
+
+                       <p class="i_description">
+                         Note: If you want a stunning product image, the best Dimension would be 640 * 640.
+                       </p>
+                       <style>
+                       .cropArea
+                       {
+                         margin:30px auto;
+                         background: #E4E4E4;
+                         overflow: hidden;
+                         width:500px;
+                         height:350px;
+                     }
+
+
+                       </style>
+                         <a href="images/640*640.jpg" target="_blank"> Preview of image </a>
+                         <div class="form-group" ng-show="image_icon">
+
+                            <div class="select_img"><b>Select an image file:</b> <input type="file" id="fileInput" /></div>
+                             <spinner name="booksSpinner"  img-src="http://i.stack.imgur.com/MnyxU.gif" style=" margin-left: 44px;margin:4px auto;width: 180px;"></spinner>
+                            <div class="cropArea" ng-show="cropArea">
+                              <img-crop result-image-size="640" ngf-pattern="'image/*'"
+                              ngf-accept="'image/*'" image="myImage" area-type="square" result-image="myCroppedImage"></img-crop>
+
+                            </div>
+
+                              <div class="text-center ">
+                            <input type="button" id="cropped" class="btn btn-warning image_cropped" value="Add Image" ng-click="crop()">
+                          </div>
+                          </div>
+                      <div class="form-group">
+                        <div class="col-md-12 image_main" id="image_url1">
+                          <div ng-repeat="i in images">
+                            <div class ="col-md-6 image_part_one" id="{{i.id}} image_part" >
+                              <div style="text-align: center;" >
+                                <input type="button" style="margin-top:40% !important;margin:5px;padding:0px 6px;font-weight:900;" class="btn btn-danger" btn-sm value="x" ng-click="remove_image($index)"/>
+
+                                <img style="padding: 0px;border: 2px  solid #000;" class="img-responsive col-md-11" src ="{{i.cdn.url}}"/>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                </br>
+
+                </div>
+              </br>
+              <div class="submit-btn" style="text-align:center;">
+                <input type="submit"  style="position: absolute;left: 42%;bottom: 40px;border: 2px solid #000;padding: 10px 30px;font-weight: 600;font-size: 18px;" class="btn btn-success" id="button" value="Submit" />
+              </div>
+          </div>
+
+
+
+            </form>
+        </div>
+
+    </section>
+    <section class="content" >
+
+      <div class="col-lg-12  col-xs-12">
+        <div class="footer-widget">
+            <h3>News Feed</h3>
+          <ul id="recentpost" class="footer-gallery">
+
+          </ul>
+          <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+        </div>
+      </div>
+  </section>
+
+    <footer class="main-footer" style="padding-bottom:100px;" ng-controller ="FooterCtrl">
+      <div class="col-lg-4">
+        <strong>Copyright &copy; 2014-2016 .</strong> All rights
+        reserved.
+      </div>
+      <div class="col-lg-8 col-xs-12 ">
+        <ul>
+          <li class="footer_li" ng-repeat ="y in pages">
+              <a target="_blank" href="#/content/{{y._id}}">{{y.name}}</a>
+            </li>
+
+        </ul>
+    </div>
+    <div class="col-md-offset-5 col-md-6 col-xs-12 text-right">
+      <p>
+        <a href="javascript:void(0);">
+            <i class="fa fa-android fa_icon"></i>
+        </a>
+        <a href="javascript:void(0);">
+            <i class="fa fa-apple fa_icon"></i>
+        </a>
+         Download our App Sell on the move, anywhere and anytime via our app
+      </p>
+    </div>
+
+    </footer>
+    <!-- Main content -->
+
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+
+  <!-- /.control-sidebar -->
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+</div>
+</div>
+<script>
+
+</script>
+<script src="scripts/library/jquery.upload_preview.min.js"></script>
+<script type="text/javascript">
+    $('.anyName').uploadPreview({
+        width: '200px',
+        height: '200px',
+        backgroundSize: 'cover',
+        fontSize: '16px',
+        borderRadius: '200px',
+        border: '3px solid #dedede',
+        lang: 'en', //language
+    });
+</script>

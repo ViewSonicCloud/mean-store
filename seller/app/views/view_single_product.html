@@ -1,0 +1,162 @@
+
+<link rel="stylesheet" href="styles/single-product.css" />
+
+<div class="wrapper">
+
+  <w3-test-directive></w3-test-directive>
+  <sidebar></sidebar>
+  <!-- Left side column. contains the logo and sidebar -->
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper" >
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+
+      </h1>
+      <div class="outer">
+        <div class="container-fluid clearfix" style="padding:0px;">
+           <div class="inner-container">
+
+
+          <div class="tab-content">
+            <div id="home clearfix" class="tab-pane fade in active clearfix">
+                <p class="pull-left"><a href="#/order_yet_to_shipped"> <i class="fa fa-arrow-left" style="font-size: 21px;line-height: 27px;"></i> </a></p><p class="lead ">SHIPMENT DETAILS</p>
+                <div class="active-inner clearfix" >
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-2 col-sm-2 img-col" style="">
+                        <b>IMAGE</b>
+                      </div>
+                      <div class="col-md-3 col-sm-3" style="">
+                        <b>DETAILS</b>
+                      </div>
+                      <div class="col-md-2 col-sm-2">
+                        <b>BUYER</b>
+                      </div>
+                      <div class="col-md-3 col-sm-3" style="text-align: center;padding-left: 0px;">
+                        <b>CALCULATION</b>
+                      </div>
+                      <div class="col-md-2 col-sm-2">
+                        <b>SHIPMENT</b>
+                      </div>
+
+
+                    </div>
+                  </div>
+                  <div>
+                  <div class="border-section" id={{o._id}}>
+                    <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-2 col-sm-2" style="padding: 0px;margin-left: -13px;">
+                        <img class="shippment_image"src="  {{order[0].products[0].images[0].cdn.url}}" width="114"/>
+                      </div>
+                      <div class="col-md-3 col-sm-3" >
+                        <p>
+                          {{order[0].products[0].description}}<br/>
+
+                          Qty: {{order[0].products[0].bought_quantity}}<br/>
+                          Weight: {{order[0].products[0].shipping_details.weight}} {{order[0].products[0].shipping_details.unit}}
+                        </p>
+                      </div>
+                      <div class="col-md-3 col-sm-3">
+                      <p>
+                        <b>Name :</b> {{order[0].billing.name}}
+                        <address>
+                        <b>Address :</b><br/>
+                        {{order[0].billing.address}}<br/>
+                        {{order[0].billing.state}}<br/>
+                        {{order[0].billing.city}}<br/>
+                      {{order[0].billing.pincode}} {{order[0].billing.country}}
+                      </p>
+                      </address>
+                      </div>
+                      <div class="col-md-2 col-sm-2">
+                        <p class="u_price">Total Price:<b> &#8377;</b> {{order[0].total_price}}</p>
+                        <p class="u_price">Total Tax:<b> &#8377;</b>{{order[0].total_tax}}</p>
+                        <p class="u_price">Shipping: <b> &#8377;</b>{{order[0].total_shipping}}</p>
+                      </div>
+                      <div class="col-md-2 col-sm-2" style="text-align:center;">
+                        <p>
+                          <b>Name :</b> {{order[0].shipping.name}}
+                          <address>
+                          <b>Address :</b><br/>
+                          {{order[0].shipping.address}}<br/>
+                          {{order[0].shipping.state}}<br/>
+                          {{order[0].shipping.city}}<br/>
+                        {{order[0].shipping.pincode}} {{order[0].shipping.country}}
+                        </p>
+
+                          Tracking ID: {{order[0].products[0].tracking.tracking_number}}
+                      </div>
+
+
+                    </div>
+                  </div>
+                  </div>
+                </div>
+
+                </div>
+            </div>
+
+          </div>
+          </div>
+        </div><!--container-->
+      </div><!--outer-->
+
+    </section>
+
+    <!-- Main content -->
+    <section class="content" >
+
+      <div class="col-lg-12  col-xs-12">
+        <div class="footer-widget">
+            <h3>News Feed</h3>
+          <ul id="recentpost" class="footer-gallery">
+
+          </ul>
+          <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+        </div>
+      </div>
+  </section>
+    <footer class="main-footer" style="padding-bottom:100px;" ng-controller ="FooterCtrl">
+    <div class="col-lg-4">
+      <strong>Copyright &copy; 2014-2016 .</strong> All rights
+      reserved.
+    </div>
+    <div class="col-lg-8 col-xs-12 ">
+      <ul>
+        <li class="footer_li" ng-repeat ="y in pages">
+            <a target="_blank" href="#/content/{{y._id}}">{{y.name}}</a>
+          </li>
+
+      </ul>
+  </div>
+  <div class="col-md-offset-5 col-md-6 col-xs-12 text-right">
+    <p>
+      <a href="javascript:void(0);">
+          <i class="fa fa-android fa_icon"></i>
+      </a>
+      <a href="javascript:void(0);">
+          <i class="fa fa-apple fa_icon"></i>
+      </a>
+       Download our App Sell on the move, anywhere and anytime via our app
+    </p>
+  </div>
+
+
+  </footer>
+    <!-- /.content -->
+
+  </div>
+  <!-- /.content-wrapper -->
+
+  <script>
+
+  </script>
+
+
+</div>

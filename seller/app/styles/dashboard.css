@@ -1,0 +1,33 @@
+.asterik:after
+{
+content:" * ";
+color:#ff0000;
+}
+.grid-cls
+{
+  margin-top:15px;
+}
+.dashboard_description
+{
+  color:#72afd2;
+}
+.footer_li
+{
+  display:inline-block;
+  padding: 0px 2px;
+  color:#3c94d3;
+}
+.footer_li:after
+{
+  content:"|";
+  padding-left: 4px;
+}
+.fa_icon
+{
+  margin:0px 3px;
+}
+.content
+{
+  background: #fff;
+  margin:20px 27px !important;
+}

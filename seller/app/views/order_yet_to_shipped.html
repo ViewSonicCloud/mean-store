@@ -1,0 +1,170 @@
+
+<div class="wrapper">
+  <link rel="stylesheet" href="styles/sales.css">
+
+  <w3-test-directive></w3-test-directive>
+  <sidebar></sidebar>
+  <!-- Left side column. contains the logo and sidebar -->
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <div class="alert alert-success toggle" id="toggle">
+      <a href="javascript:void(0)" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <div id="message"></div>
+    </div>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+    Track Shipments
+      </h1>
+      <div class="outer">
+        <div class="container-fluid clearfix" style="padding:0px;">
+           <div class="inner-container">
+             <ul class="nav nav-pills col-md-12" style="padding:0px;text-align:center;">
+
+               <li class="active col-md-3" style="padding:0px;margin-left:0px;"><a class="btn btn-default" data-toggle="pill" href="#/order_yet_to_shipped" data-target="#inactive_product">Yet to be Shipped</a></li>
+               <li class="col-md-2" style="padding:0px;margin-left:0px;"><a class="btn btn-default" data-toggle="pill" href="#/order_pick_up" data-target="#product">Pick up Scheduled</a></li>
+
+               <li class="col-md-2" style="padding:0px;margin-left:0px;"><a  class="btn btn-default"data-toggle="pill" href="#/order_shipped" data-target="#inactive_product">Shipped</a></li>
+               <li class="col-md-2" style="padding:0px;margin-left:0px;"><a class="btn btn-default" data-toggle="pill" href="#/order_delivered" data-target="#inactive_product">Delivered</a></li>
+               <li class="col-md-3" style="padding:0px;margin-left:0px;"><a class="btn btn-default" data-toggle="pill" href="#/order_returned" data-target="#inactive_product">Returned</a></li>
+             </ul>
+
+
+          <div class="tab-content">
+
+            <div id="home" class="tab-pane fade in active clearfix">
+              <p class="lead text-center" style="margin-top: 20px;padding-top: 23px;">Once you have scheduled a pick-up by the logistics company, you would need to mark the Order as <br/> <b style="font-weight:600;color:#000;">" Pick up Scheduled "</b>, by pressing the button for the respective order.
+              </p>
+              <!--search-->
+                <div class="pull-right search_pd" style="margin-top:10px;">
+                  <label>
+                    Search:
+                  </label>
+                  <div class="form-group">
+                   <input ng-model="searchText" class="form-control">
+                 </div>
+               </div>
+                 <!--search-->
+                <div class="active-inner clearfix" >
+                  <div class="container-fluid" style="margin-top:50px;">
+                    <div class="row">
+                      <div class="col-md-3 col-sm-3 img-col" style="">
+                        <b>Order Id</b>
+                      </div>
+                      <div class="col-md-2 col-sm-2 ">
+                        <b>Quantity</b>
+                      </div>
+                      <div class="col-md-1 col-sm-1">
+                        <b>Price</b>
+                      </div>
+
+
+                      <div class="col-md-2 col-sm-2" style="text-align: center;">
+                        <b>Date</b>
+                      </div>
+                      <div class="col-md-2 col-sm-2" style="text-align:center;">
+                        <b>Action</b>
+                      </div>
+                    </div>
+                  </div>
+                  <div ng-if="orders ==0" class="no-data">
+                    No Product
+                  </div>
+                  <div ng-repeat ="o in orders |filter:searchText">
+                  <div class="border-section" id={{o._id}}>
+                    <div class="container-fluid" style="padding:0px;">
+                    <div class="row">
+                      <div class="col-md-2">
+                      {{o._id}}
+                      </div>
+                      <div class="col-md-1">
+                      </div>
+                      <div class="col-md-1" style="text-align:center;">
+                      {{o.quantity}}
+                      </div>
+
+                      <div class="col-md-2">
+                          <div class="price_inner" style="text-align: right;">
+                            {{o.price}}
+                          </div>
+                      </div>
+
+
+                      <div class="col-md-2" style="text-align:center;">
+                       <p ng-bind="o.products[0].updated_at | date:'MM/dd/yyyy HH:mm:ss'"></p>
+
+
+                      </div>
+                      <div class="col-md-3" style="text-align:center;">
+
+                        <track-status order="o._id" product="o.product_id" status="Schedule Pickup"></track-status>
+                        <a data="{{o._id}}"  ng-click="view_single_product(o._id)" style="cursor:pointer;margin-left:15px;">View</a>
+                      </div>
+
+                    </div>
+                  </div>
+                  </div>
+                </div>
+
+                </div>
+            </div>
+
+          </div>
+          </div>
+        </div><!--container-->
+      </div><!--outer-->
+
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <div class="col-lg-12  col-xs-12">
+        <div class="footer-widget">
+          <h3>News Feed</h3>
+          <ul id="recentpost" class="footer-gallery">
+
+          </ul>
+          <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+        </div>
+      </div>
+  </section>
+    <footer class="main-footer" style="padding-bottom:100px;" ng-controller ="FooterCtrl">
+      <div class="col-lg-4">
+        <strong>Copyright &copy; 2014-2016 .</strong> All rights
+        reserved.
+      </div>
+      <div class="col-lg-8 col-xs-12 ">
+        <ul>
+          <li class="footer_li" ng-repeat ="y in pages">
+              <a target="_blank" href="#/content/{{y._id}}">{{y.name}}</a>
+            </li>
+
+        </ul>
+    </div>
+    <div class="col-md-offset-5 col-md-6 col-xs-12 text-right">
+      <p>
+        <a href="javascript:void(0);">
+            <i class="fa fa-android fa_icon"></i>
+        </a>
+        <a href="javascript:void(0);">
+            <i class="fa fa-apple fa_icon"></i>
+        </a>
+         Download our App Sell on the move, anywhere and anytime via our app
+      </p>
+    </div>
+
+
+
+    </footer>
+    <!-- /.content -->
+  </div>
+
+  <script>
+
+  </script>
+
+</div>
