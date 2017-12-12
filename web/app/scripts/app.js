@@ -38,9 +38,9 @@ angular
     'preferredLocale': 'en_US'
   })
   .constant({
-    'endpoint': 'http://localhost:3000/api/v1',
-    'dpath': 'http://www.thesymbol.store/#/',
-    'seller': 'http://seller.thesymbol.store/#/'
+    'endpoint': 'https://cloudapi.myviewboard.com/api/v1',
+    'dpath': '',
+    'seller': ''
   })
   // Router
   .config(function($routeProvider) {

@@ -29,3 +29,4 @@
     }
   }
 }
+aws s3 sync dist/ s3://market-admin.myviewboard.com/marketplace/admin --metadata-directive REPLACE --expires 2017-12-07T00:00:00Z --acl public-read  --cache-control max-age=2592000,public

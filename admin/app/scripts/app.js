@@ -21,7 +21,7 @@ angular
     'ngFileUpload'
   ])
   .constant({
-    'endpoint': "http://localhost:3000/api/v1"
+    'endpoint': "https://cloudapi.myviewboard.com/api/v1"
   })
   .config(function($routeProvider) {
     $routeProvider
