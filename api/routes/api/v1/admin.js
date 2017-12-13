@@ -5,6 +5,8 @@ var adminController = require(ROOT_FOLDER + "/controllers/api/v1/admin");
 var settingsCtrl = require(ROOT_FOLDER + "/controllers/api/v1/site_configuration");
 var hSettingsCtrl = require(ROOT_FOLDER + "/controllers/api/v1/main_page_configuration");
 var auth = require(ROOT_FOLDER + "/middlewares/authentication");
+
+
 router.post("/auth", adminController.Auth);
 router.get("/settings", settingsCtrl.getSettings);
 router.put("/settings", settingsCtrl.saveSettings);

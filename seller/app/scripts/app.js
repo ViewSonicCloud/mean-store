@@ -25,7 +25,7 @@ angular
     'ui.bootstrap',
     'ui.bootstrap.datetimepicker',
   ])
-  .constant('url', 'http://localhost:3000/')
+  .constant('url', 'https://cloudapi.myviewboard.com/')
   .constant('user_url','http://www.thesymbol.store/')
   .constant('sellers','api/v1/sellers/')
   .constant('sellers_url','http://seller.thesymbol.store/')
