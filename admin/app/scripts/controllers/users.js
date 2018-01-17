@@ -335,6 +335,7 @@ angular.module('eCommerceAdminApp')
         user.banner = user.upload_banner ? user.upload_banner : null;
         user.logo = user.upload_logo ? user.upload_logo : null;
         user.roles = user.role ? user.role : null;
+          user.verified=true;
         delete user.upload_image;
         delete user.upload_banner;
         delete user.upload_logo;
