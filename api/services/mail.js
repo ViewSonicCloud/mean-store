@@ -407,13 +407,15 @@ exports.sendProductStatusMail = function(id, status, cb) {
                 status: statusD
             });
             Objects['subject'] = eTemplate.subject;
-            mTemplate.content='';
-            Objects['mTemplate'] = _self.parseTemplate(mTemplate.content, {
-                name: product.created_by.name,
-                email: product.created_by.email,
-                product_name: product.name,
-                status: statusD
-            });
+            if(mTemplate.content){
+                Objects['mTemplate'] = _self.parseTemplate(mTemplate.content, {
+                    name: product.created_by.name,
+                    email: product.created_by.email,
+                    product_name: product.name,
+                    status: statusD
+                });
+            }
+
             Objects['product'] = product;
             cb(null, Objects);
         }
