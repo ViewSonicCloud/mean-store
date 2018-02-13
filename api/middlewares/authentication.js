@@ -3,11 +3,11 @@ exports.isProductAddUser = function(req, res, next) {
   console.log(req.user.roles)
     if (req.user.roles.indexOf("admin") !== -1) {
         req.user.Admin = true;
-        req.user.Seller = false;
+        //req.user.Seller = false;
         next();
     } else if (req.user.roles.indexOf("seller") !== -1) {
         req.user.Seller = true;
-        req.user.Admin = false;
+        //req.user.Admin = false;
         next();
     } else {
         var err = new Error("Unauthorized");
