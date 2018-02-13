@@ -421,7 +421,7 @@ exports.sendProductStatusMail = function(id, status, cb) {
             cb(null, Objects);
         }
     ], function(err, Objects) {
-        product = Objects["user"];
+    /*    product = Objects["user"];
         _self.sendMail(admin_email,
             product.created_by.email,
             Objects['subject'],
@@ -437,7 +437,7 @@ exports.sendProductStatusMail = function(id, status, cb) {
                     console.log(result)
                 }
             );
-        }
+        }*/
     });
 }
 exports.sendOrderPlacedNotification1 = function(order_id, cb) {
