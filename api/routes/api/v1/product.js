@@ -29,7 +29,7 @@ router.get("/get-products",
     passport.authenticate("token", {
         session: false
     }),
-    //auth.isProductAddUser,
+    auth.isProductAddUser,
     productController.getProducts
 );
 router.get("/get-approved-products",
