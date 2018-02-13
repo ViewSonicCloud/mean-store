@@ -408,7 +408,7 @@ exports.sendProductStatusMail = function(id, status, cb) {
             });
             Objects['subject'] = eTemplate.subject;
           console.log(mTemplate);
-            if(mTemplate.content){
+            if(mTemplate){
                 Objects['mTemplate'] = _self.parseTemplate(mTemplate.content, {
                     name: product.created_by.name,
                     email: product.created_by.email,
