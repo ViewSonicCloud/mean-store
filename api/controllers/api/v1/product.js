@@ -14,6 +14,7 @@ exports.addProduct = function(req, res, next) {
 }
 exports.getProducts = function(req, res, next) {
     var where = {};
+    console.log(JSON.stringify(req.user));
     where = req.user.Admin ? {} : {
         created_by: req.user._id
     };
