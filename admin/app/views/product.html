@@ -46,7 +46,7 @@
                     <th>Created On</th>
                     <th>Action</th>
                   </tr>
-                  <!-- <tr>
+                   <tr>
                     <td><input type="text" ng-model="Ctrl.search.title"></td>
                     <td><input type="text" ng-model="Ctrl.search.pricing"></td>
                     <td><input type="text" ng-model="Ctrl.search.created_by.name"></td>
@@ -54,11 +54,11 @@
                     <td><input type="text" ng-model="Ctrl.search.quantity"></td>
                     <td><input type="text" ng-model="Ctrl.search.status"></td>
                     <td><input type="text" ng-model="Ctrl.search.created_at"></td>
-                  </tr> -->
+                  </tr>
                 </thead>
                 <tbody>
                   <tr ng-repeat="product in ProdC.product_list | filter:Ctrl.search" on-finish-render="ngRepeatFinished">
-                    <td>{{product.title}}</td>
+                    <td><a href="#/product/{{product._id}}">{{product.title}}</a> </td>
                     <td>Original :{{product.pricing.original}}<br/> After Discount:{{product.pricing.after_discount}}<br/> Service Tax:{{product.pricing.service_tax}}<br/> Commision:{{product.pricing.commission}} </td>
                     <td>{{product.created_by.name}}</td>
                     <td>{{product.sku}}</td>
